@@ -43,7 +43,7 @@ class CustomEmojiSpec: XCTestCase, RealmTestCase {
     func testImageUrl() {
         let object = CustomEmoji.testInstance()
 
-        XCTAssertEqual(object.imageUrl(serverUrl: "https://open.rocket.chat"), "https://open.rocket.chat/emoji-custom/emoji-name.emoji-file-extension")
+        XCTAssertEqual(object.imageUrl(serverUrl: "https://nau.goalify.chat"), "https://nau.goalify.chat/emoji-custom/emoji-name.emoji-file-extension")
         XCTAssertEqual(object.imageUrl(serverUrl: nil), nil)
     }
 

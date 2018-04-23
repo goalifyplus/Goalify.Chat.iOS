@@ -155,11 +155,11 @@ extension MessageSpec {
         let message = Message.testInstance()
 
         message.subscription.type = .channel
-        XCTAssertEqual(message.quoteString, " [ ](https://open.rocket.chat/channel/subscription-name?msg=message-identifier)", "channel quoteString is correct")
+        XCTAssertEqual(message.quoteString, " [ ](https://nau.goalify.chat/channel/subscription-name?msg=message-identifier)", "channel quoteString is correct")
         message.subscription.type = .group
-        XCTAssertEqual(message.quoteString, " [ ](https://open.rocket.chat/group/subscription-name?msg=message-identifier)", "group quoteString is correct")
+        XCTAssertEqual(message.quoteString, " [ ](https://nau.goalify.chat/group/subscription-name?msg=message-identifier)", "group quoteString is correct")
         message.subscription.type = .directMessage
-        XCTAssertEqual(message.quoteString, " [ ](https://open.rocket.chat/direct/subscription-name?msg=message-identifier)", "dm quoteString is correct")
+        XCTAssertEqual(message.quoteString, " [ ](https://nau.goalify.chat/direct/subscription-name?msg=message-identifier)", "dm quoteString is correct")
 
         message.identifier = nil
         XCTAssertNil(message.quoteString, "quoteString is nil when message identifier is nil")
@@ -171,11 +171,11 @@ extension MessageSpec {
         let message = Message.testInstance()
 
         message.subscription.type = .channel
-        XCTAssertEqual(message.replyString, " @user-username [ ](https://open.rocket.chat/channel/subscription-name?msg=message-identifier)", "channel replyString is correct")
+        XCTAssertEqual(message.replyString, " @user-username [ ](https://nau.goalify.chat/channel/subscription-name?msg=message-identifier)", "channel replyString is correct")
         message.subscription.type = .group
-        XCTAssertEqual(message.replyString, " @user-username [ ](https://open.rocket.chat/group/subscription-name?msg=message-identifier)", "group replyString is correct")
+        XCTAssertEqual(message.replyString, " @user-username [ ](https://nau.goalify.chat/group/subscription-name?msg=message-identifier)", "group replyString is correct")
         message.subscription.type = .directMessage
-        XCTAssertEqual(message.replyString, " [ ](https://open.rocket.chat/direct/subscription-name?msg=message-identifier)", "dm replyString is correct")
+        XCTAssertEqual(message.replyString, " [ ](https://nau.goalify.chat/direct/subscription-name?msg=message-identifier)", "dm replyString is correct")
 
         message.identifier = nil
         XCTAssertNil(message.replyString, "replyString is nil when message identifier is nil")
