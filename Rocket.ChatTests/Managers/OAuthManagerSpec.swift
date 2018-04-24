@@ -40,8 +40,8 @@ class OAuthManagerSpec: XCTestCase {
         let loginService = LoginService()
         loginService.service = "github"
 
-        let serverURL: URL! = URL(string: "https://nau.goalify.chat")
-        let expectedURL: URL! = URL(string: "https://nau.goalify.chat/_oauth/github")
+        let serverURL: URL! = URL(string: "https://demo.goalify.chat")
+        let expectedURL: URL! = URL(string: "https://demo.goalify.chat/_oauth/github")
 
         XCTAssertEqual(OAuthManager.callbackUrl(for: loginService, server: serverURL), expectedURL, "callbackURL returns expected url")
 
@@ -56,7 +56,7 @@ class OAuthManagerSpec: XCTestCase {
 
     func testOauthSwiftForLoginService() {
         let loginService = LoginService()
-        loginService.serverUrl = "https://nau.goalify.chat/"
+        loginService.serverUrl = "https://demo.goalify.chat/"
         loginService.authorizePath = "authorize_path"
         loginService.tokenPath = "token_path"
         loginService.clientId = "client_id"
@@ -84,7 +84,7 @@ class OAuthManagerSpec: XCTestCase {
     func testAuthorizeWithInvalidLoginService() {
         let loginService = LoginService()
 
-        let url: URL! = URL(string: "https://nau.goalify.chat/")
+        let url: URL! = URL(string: "https://demo.goalify.chat/")
         let valid = OAuthManager.authorize(loginService: loginService, at: url, viewController: UIViewController(), success: { _ in }, failure: { })
 
         XCTAssertFalse(valid)
@@ -92,7 +92,7 @@ class OAuthManagerSpec: XCTestCase {
 
     func testAuthorizeWithValidLoginService() {
         let loginService = LoginService.testInstance()
-        let url: URL! = URL(string: "https://nau.goalify.chat")
+        let url: URL! = URL(string: "https://demo.goalify.chat")
         let valid = OAuthManager.authorize(loginService: loginService, at: url, viewController: UIViewController(), success: { _ in }, failure: { })
 
         XCTAssertTrue(valid)

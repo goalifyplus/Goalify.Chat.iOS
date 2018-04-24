@@ -43,7 +43,7 @@ class InfoRequestHandlerSpec: XCTestCase {
         controller = InfoRequestHandlerFakeDelegate()
 
         instance.delegate = controller
-        instance.url = URL(string: "https://nau.goalify.chat")
+        instance.url = URL(string: "https://demo.goalify.chat")
     }
 
     func testViewControllerDelegateMethod() {

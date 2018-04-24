@@ -12,5 +12,5 @@ import SwiftyJSON
 @testable import Rocket_Chat
 
 class APITestCase: XCTestCase {
-    let api: API! = API(host: "https://nau.goalify.chat")
+    let api: API! = API(host: "https://demo.goalify.chat")
 }

@@ -1,0 +1,25 @@
+/*
+  VoiceOver.strings
+  Rocket.Chat
+
+  Created by Matheus Cardoso on 12/5/17.
+  Copyright © 2017 Rocket.Chat. All rights reserved.
+*/
+
+// MARK: Auth
+"auth.connect.urlfield.label" = "Đường dẫn URL của máy chủ";
+"auth.connect.urlfield.hint" = "Nhập đường dẫn URL của máy chủ của bạn ở đây.";
+
+"auth.authentication.emailorusername.label" = "Email hoặc tên tuy cập";
+"auth.authentication.emailorusername.hint" = "Vui lòng nhập email hoặc tên truy cập của bạn ở đây.";
+"auth.authentication.password.label" = "Mật khẩu";
+"auth.authentication.password.label" = "Nhập mật khẩu của bạn ở đây.";
+
+// MARK: Subscriptions
+"subscriptions.main.userview.label" = "Thông tin phiên truy cập";
+"subscriptions.main.userview.value" = "Máy chủ: %@. Người dùng: %@. Trạng thái: %@.";
+"subscriptions.main.userview.hint" = "Nhấp hai lần đề thay đổi trang thái.";
+
+// MARK: Message
+"message.label" = "Tin nhắn từ %@ tại %@.";
+"message.hint" = "Phản ứng: %@";

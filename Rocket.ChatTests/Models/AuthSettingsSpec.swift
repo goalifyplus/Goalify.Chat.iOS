@@ -16,8 +16,8 @@ import SwiftyJSON
 extension AuthSettings {
     static func testInstance() -> AuthSettings {
         let settings = AuthSettings()
-        settings.siteURL = "https://nau.goalify.chat"
-        settings.cdnPrefixURL = "https://nau.goalify.chat"
+        settings.siteURL = "https://demo.goalify.chat"
+        settings.cdnPrefixURL = "https://demo.goalify.chat"
         return settings
     }
 }

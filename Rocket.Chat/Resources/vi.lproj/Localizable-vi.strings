@@ -1,0 +1,237 @@
+// Global
+"global.ok" = "OK";
+"global.no" = "No";
+"global.cancel" = "Cancel";
+
+// Errors
+"error.socket.default_error.title" = "Oops!";
+"error.socket.default_error.message" = "Đã có lỗi xảy ra, Vui lòng thử lại.";
+
+// Alerts
+"alert.connection.invalid_url.title" = "Oops!";
+"alert.connection.invalid_url.message" = "Đường dẫn URL bạn nhập không hợp lệ. Vui lòng kiểm tra và nhập lại!";
+
+"alert.connection.socket_error.title" = "Oops!";
+"alert.connection.socket_error.message" = "Không thể kết nối tới máy chủ!";
+
+"alert.connection.invalid_version.title" = "Oops!";
+"alert.connection.invalid_version.message" = "Phiên bản máy chủ mà bạn đang kết nối hiện tại không hỗ trợ bởi ứng dụng: %@.\n\nPhiên bản được hỗ trợ là: %@.";
+
+"alert.settings.set_mail_app.title" = "Oops!";
+"alert.settings.set_mail_app.message" = "Không có tài khoản Mail.Vui lòng thiết lập một tài khoản Mail để gửi email.";
+
+"alert.feature.wip.title" = "Oops!";
+"alert.feature.wip.message" = "Chúng tôi vẫn đang hoàn thiện tính năng này, hãy đợi nhé!";
+
+"alert.insecure_image.title" = "Tài nguyên không an toàn";
+"alert.insecure_image.message" = "Tài nguyên của  hình ảnh này không được an toàn và vì thế không được tải. Chỉ tài nguyên có bảo mật SSL được cho phép.";
+
+"alert.socket_error.invalid_user.title" = "Phiên kết nối hết hạn";
+"alert.socket_error.invalid_user.message" = "Phiên kết nối của bạn đã hết hạn. Vui lòng đăng nhập lại.";
+
+"alert.login_service_error.title" = "Xác thực bị lỗi";
+"alert.login_service_error.message" = "Không thể xác thực sử dụng thiết bị này. Vui lòng thử lại.";
+
+"alert.authorization_error.title" = "Lồi quyền hạn";
+"alert.authorization_error.create_channel.description" = "Bạn không thể tạo kênh mới";
+
+"alert.unsupported_feature.title" = "Tính năng không được hỗ trợ";
+"alert.unsupported_feature.message" = "Phiên bản của máy chủ là : %@. Tính năng này chỉ hỗ trợ cho phiên bản %@ và cao hơn.";
+
+"alert.push_token_error.title" = "Cảnh báo";
+"alert.push_token_error.message" = "Bạn vẫn có thể nhận thông báo Push từ máy chủ này vì một vấn đề với máy chủ có phiên bản thấp hơn 0.60.0";
+
+"alert.upload_error.title" = "Lỗi tải dữ liệu lên";
+"alert.upload_error.message" = "Một sự cố đã xảy ra khi đang tải dữ liệu của bạn lên. Vui lòng thử lại.";
+
+"alert.upload_dialog.title" = "Tải dữ liệu lên";
+"alert.upload_dialog.placeholder.title" = "Tiêu đề";
+"alert.upload_dialog.placeholder.description" = "Mô tả";
+"alert.upload_dialog.action.upload" = "Tải lên";
+
+"alert.email_verification.title" = "Xác thực Email";
+"alert.email_verification.message" = "Chúng tôi đã gửi một email để xác nhận việc đăng ký của bạn. Nếu bạn không nhận được email nào, vui lòng quay lại và thử lại sau.";
+
+// Connection Redirect
+"connection.server.redirect.alert.title" = "Máy chủ đã thay đổi đường dẫn URL";
+"connection.server.redirect.alert.message" = "Dường như máy chủ này đã thay đổi đường dẫn URL thành :\n\n%@\n\nBạn có muốn cập nhật đường dẫn này không?";
+"connection.server.redirect.alert.confirm" = "Vâng, hãy cập nhật đường dẫn URL";
+
+// Socket Connection
+"connection.offline.banner.message" = "Bạn đã ngoại tuyến, hãy thử kết nối lại";
+"connection.connecting.banner.message" = "Đang kết nối...";
+
+// Auth
+"auth.connect.button_connect" = "Kết nối";
+"auth.connect.ssl_required" = "Xác thực này yêu cầu máy chủ của bạn có SSL";
+"auth.connect.connecting" = "Kết nối đang được thực hiện. Bạn vui lòng đợi trong giây lát";
+
+"auth.login.username.placeholder" = "Email hoặc tên người dùng";
+"auth.login.password.placeholder" = "Mật khẩu";
+"auth.login.buttonRegister" = "Tạo tài khoản mới";
+"auth.login.buttonResetPassword" = "Quên mật khẩu";
+"auth.login.agree_label" = "Thực hiện điều này đồng nghĩ với việc đồng ý với";
+"auth.login.agree_and" = "và";
+"auth.login.agree_termsofservice" = "Chính sách sử dụng";
+"auth.login.agree_privacypolicy" = "Chính sách bảo mật";
+
+"auth.forgot_password.title" = "Bạn quên mật khẩu?";
+"auth.forgot_password.message" = "Vui lòng nhập email của bạn";
+"auth.forgot_password.success" = "Nếu email này được đăng ký. Chúng tôi sẽ gửi chỉ dẫn cách khôi phục mật khẩu. Nếu bạn không nhận được email, vui lòng quay lại và thử lại sau.";
+
+// Subscriptions
+"subscriptions.search" = "Tìm kiếm";
+"subscriptions.search_results" = "Kết quả";
+"subscriptions.search.load_more_results" = "Hiển thị thêm kết quả";
+"subscriptions.unreads" = "Tin nhắn chưa độc";
+"subscriptions.favorites" = "Nhóm yêu thích";
+"subscriptions.channels" = "Các kênh";
+"subscriptions.direct_messages" = "Tin nhắn trực tiếp";
+
+// Servers
+"servers.add_new_team" = "Thêm nhóm mới";
+"servers.action.connect" = "Kết nối";
+"servers.action.remove" = "Xóa nhóm";
+
+// User Menu
+"user_menu.online" = "Trực tuyến";
+"user_menu.away" = "Vắng mặt";
+"user_menu.busy" = "Đang bận";
+"user_menu.invisible" = "Vô hình";
+"user_menu.admin" = "Quản trị";
+"user_menu.preferences" = "Tùy chỉnh";
+"user_menu.logout" = "Đăng xuất";
+
+// New Room View
+"new_room.title" = "Kênh mới";
+"new_room.buttons.create" = "Tạo";
+"new_room.cell.public_channel.title" = "Kênh công khai";
+"new_room.cell.public_channel.description" = "Mọi người có thể truy cập kênh này";
+"new_room.cell.public_channel.description.public_only" = "Bạn chỉ có thể tạo kênh công khai";
+"new_room.cell.public_channel.description.private_only" = "Bạn chỉ có thể tạo kênh riêng tư";
+"new_room.cell.read_only.title" = "Kênh chỉ được đọc";
+"new_room.cell.read_only.description" = "Chỉ quản trị viên có quyền gửi tin nhắn mới";
+"new_room.group.channel.name" = "Tên của kênh";
+"new_room.group.channel.footer" = "Tên phải theo định dạng chữ không in hoa và ngắn hơn 22 ký tự";
+"new_room.cell.channel_name.title" = "Tên của kênh";
+"new_room.group.invite_users" = "Mời người dùng";
+"new_room.cell.invite_users.placeholder" = "Tên người dùng";
+
+// Notifications
+"notifications.action.reply" = "Hồi âm";
+
+// Chat
+"chat.channel_preview_view.title" = "Đây là phần xem trước của #%@";
+"chat.channel_preview_view.join" = "Gia nhập kênh";
+"chat.dm.start_conversation" = "Đây là nơi bắt đầu cuộc nói chuyện với %@";
+"chat.channel.start_conversation" = "Đây là nơi bắt đầu cuộc nói chuyện trong %@";
+"chat.read_only" = "Phòng này chỉ cho đọc";
+"chat.muted" = "Bạn đã bị tắt tiếng";
+"chat.loading_messages" = "Đang tải thêm tin nhắn...";
+"chat.unread_separator" = "Tin nhắn mới";
+
+// Chat Message Actions
+"chat.message.actions.react" = "Thêm phản ứng";
+"chat.message.actions.block" = "Chắn tin nhắn từ người dùng";
+"chat.message.actions.report" = "Báo cáo tin nhắn";
+"chat.message.actions.edit" = "Chỉnh sửa tin nhắn";
+"chat.message.actions.copy" = "Sao chép";
+"chat.message.actions.pin" = "Gắn tin nhắn";
+"chat.message.actions.unpin" = "Tháo tin nhắn";
+"chat.message.actions.quote" = "Tin nhắn";
+"chat.message.actions.reply" = "Trả lời tin nhắn";
+"chat.message.actions.delete" = "Xóa tin nhắn";
+"chat.message.actions.delete.confirm.title" = "Xóa tin nhắn này?";
+"chat.message.actions.delete.confirm.message" = "Bạn có chắc muốn xóa tin nhắn này không? Hành động này không thể được khôi phục.";
+"chat.message.actions.delete.confirm.yes" = "Vâng, tôi muốn xóa";
+"chat.message.actions.discard" = "Bỏ tin nhắn";
+"chat.message.actions.discard.confirm.title" = "Bỏ tin nhắn này?";
+"chat.message.actions.discard.confirm.message" = "Tin nhắn này chưa được gửi đi. Bạn có muốn bỏ nó không?  Hành động này không thể được khôi phục.";
+"chat.message.actions.discard.confirm.yes" = "Vâng, tôi muốn bỏ";
+"chat.message.actions.resend" = "Gửi lại";
+"chat.message.actions.resend_all" = "Gửi lại tất cả";
+"Send" = "Send"; //SLKTextInputbar.m
+
+// Chat Message Report
+"chat.message.report.success.title" = "Báo cáo tin nhắn";
+"chat.message.report.success.message" = "Tin nhắn đã được báo cáo thành công, cảm ơn bạn!";
+
+// Chat Upload
+"chat.upload.uploading_image" = "Tải hình ảnh lên";
+"chat.upload.uploading_video" = "Tải video lên";
+"chat.upload.uploading_file" = "Đang tải lên \"%@\"";
+"chat.upload.take_photo" = "Chụp ảnh";
+"chat.upload.shoot_video" = "Quay video";
+"chat.upload.choose_from_library" = "Chọn từ máy";
+"chat.upload.import_file" = "Nhập hình từ...";
+"chat.upload.draw" = "Vẽ một thứ gì đó";
+
+// Chat Download
+"chat.download.downloading_file" = "Đang tải về \"%@\"";
+
+// Chat Cell Static Messages
+"chat.message.open_file" = "Tap to open the file";
+"chat.message.open_browser" = "Open in Browser";
+
+// Chat Drawing
+"chat.drawing.errorTitle" = "Oops!";
+"chat.drawing.messageTitle" = "Bạn cần phải vẽ một thứ gì đó trước khi gửi đi.";
+"chat.drawing.fileName" = "Đang vẽ";
+"chat.drawing.settings.opacity" = "Độ mờ";
+"chat.drawing.settings.width" = "Chiều rộng";
+"chat.drawing.settings.color.selected" = "Màu được chọn";
+"chat.drawing.settings.color.others" = "Chọn màu dưới đây:";
+
+// Message Types
+"chat.message.type.room_name_changed" = "Tên phòng thay đổi từ: %@ by %@";
+"chat.message.type.user_added_by" = "Người dùng %@ được thêm bởi %@";
+"chat.message.type.user_removed_by" = "Người dùng %@ được xóa bởi %@";
+"chat.message.type.user_left" = "Đã rời khỏi kênh";
+"chat.message.type.user_joined" = "Đã tham gia kênh";
+"chat.message.type.user_muted" = "Người dùng %@ đã bị tắt âm bởi %@";
+"chat.message.type.user_unmuted" = "Người dùng %@ đã được mở âm bởi %@";
+"chat.message.type.welcome" = "Chào mừng %@";
+"chat.message.type.message_removed" = "Tin nhắn đã được xóa";
+"chat.message.type.subscription_role_added" = "%@ được gán là %@ bởi %@";
+"chat.message.type.subscription_role_removed" = "%@ không còn là %@ bởi %@";
+"chat.message.type.room_archived" = "Phòng này đã được lưu trữ bởi %@";
+"chat.message.type.room_unarchived" = "Phòng này đã được hủy lưu trữ bởi by %@";
+
+// Chat Information
+"chat.info.title" = "Thông tin";
+"chat.info.item.topic" = "Chủ đề";
+"chat.info.item.no_topic" = "Không có chủ đề";
+"chat.info.item.description" = "Mô tả";
+"chat.info.item.no_description" = "Không có mô tả";
+"chat.info.item.notifications" = "Thông báo";
+"chat.info.item.members" = "Thành viên";
+"chat.info.item.pinned" = "Gắn";
+"chat.info.item.starred" = "Đánh dấu";
+
+// Members List
+"chat.members.list.title" = "Thành viên";
+
+// Messages List
+"chat.messages.list.title" = "Tin nhắn";
+"chat.messages.list.empty" = "Tin nhắn không tìm thấy";
+"chat.messages.pinned.list.title" = "Tin nhắn được gắn";
+"chat.messages.starred.list.title" = "Tin nhắn được đánh dấu";
+
+// Settings
+"myaccount.settings.title" = "Tùy chỉnh";
+"myaccount.settings.contactus" = "Liên hệ chúng tôi";
+"myaccount.settings.license" = "Giấy phép";
+"myaccount.settings.language" = "Ngôn ngữ";
+"myaccount.settings.appicon" = "Biểu tượng của ứng dụng";
+"myaccount.settings.version" = "Phiên bản: %@ (%@)";
+
+// Change Application Icon
+"myaccount.settings.changeicon.title" = "Chọn một biểu tượng";
+"myaccount.settings.changeicon.header" = "Bạn có thể thay đổi biểu tượng của Goalify.Chat trên thiết bị của bạn. Vui lòng chọn biểu tượng ở phía dưới, biểu tượng nào bạn thích nhất.";
+"myaccount.settings.changeicon.errortitle" = "Không thể thay đổi biểu tượng";
+"myaccount.settings.changeicon.iosversion" = "Thay đổi biểu tượng cho ứng dụng không được hỗ trợ cho hệ điều hành iOS phiên bản thấp hơn 10.3";
+
+// Change Language
+"myaccount.settings.language.title" = "Chọn ngôn ngữ";
+"myaccount.settings.language.reset" = "Khôi phục cài đặt gốc";
+"myaccount.settings.language.message" = "Bạn đã thay đổi ngôn ngữ. Bạn phải khỏi động lại Goalify.Chat để tùy chỉnh mới có tác dụng.";

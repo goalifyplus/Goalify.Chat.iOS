@@ -32,20 +32,20 @@ class URLExtensionSpec: XCTestCase {
     }
 
     func testInitWithStringAndScheme() {
-        XCTAssertEqual(URL(string: "open.rocket.chat", scheme: "https")?.absoluteString, "https://nau.goalify.chat", "will add scheme")
-        XCTAssertEqual(URL(string: "https://nau.goalify.chat", scheme: "https")?.absoluteString, "https://nau.goalify.chat", "will return correct url")
-        XCTAssertEqual(URL(string: "http://open.rocket.chat", scheme: "https")?.absoluteString, "https://nau.goalify.chat", "will force https scheme")
-        XCTAssertEqual(URL(string: "https://nau.goalify.chat", scheme: "wss")?.absoluteString, "wss://open.rocket.chat", "will force wss scheme")
-        XCTAssertEqual(URL(string: "http://open.rocket.chat/path", scheme: "https")?.absoluteString, "https://nau.goalify.chat/path", "will keep path")
-        XCTAssertEqual(URL(string: "http://open.rocket.chat?query=test", scheme: "https")?.absoluteString, "https://nau.goalify.chat?query=test", "will keep query")
-        XCTAssertEqual(URL(string: "http://open.rocket.chat/path?query=test", scheme: "https")?.absoluteString, "https://nau.goalify.chat/path?query=test", "will keep path & query")
-        XCTAssertEqual(URL(string: "http://open.rocket.chat:3000/path?query=test", scheme: "https")?.absoluteString, "https://nau.goalify.chat:3000/path?query=test", "will keep path & query & port")
+        XCTAssertEqual(URL(string: "open.rocket.chat", scheme: "https")?.absoluteString, "https://demo.goalify.chat", "will add scheme")
+        XCTAssertEqual(URL(string: "https://demo.goalify.chat", scheme: "https")?.absoluteString, "https://demo.goalify.chat", "will return correct url")
+        XCTAssertEqual(URL(string: "http://open.rocket.chat", scheme: "https")?.absoluteString, "https://demo.goalify.chat", "will force https scheme")
+        XCTAssertEqual(URL(string: "https://demo.goalify.chat", scheme: "wss")?.absoluteString, "wss://open.rocket.chat", "will force wss scheme")
+        XCTAssertEqual(URL(string: "http://open.rocket.chat/path", scheme: "https")?.absoluteString, "https://demo.goalify.chat/path", "will keep path")
+        XCTAssertEqual(URL(string: "http://open.rocket.chat?query=test", scheme: "https")?.absoluteString, "https://demo.goalify.chat?query=test", "will keep query")
+        XCTAssertEqual(URL(string: "http://open.rocket.chat/path?query=test", scheme: "https")?.absoluteString, "https://demo.goalify.chat/path?query=test", "will keep path & query")
+        XCTAssertEqual(URL(string: "http://open.rocket.chat:3000/path?query=test", scheme: "https")?.absoluteString, "https://demo.goalify.chat:3000/path?query=test", "will keep path & query & port")
         XCTAssertNil(URL(string: "http://", scheme: "https")?.absoluteString, "will return nil when hostless")
         XCTAssertNil(URL(string: "", scheme: "https"), "will return nil when empty")
     }
 
     func testQueryParameters() {
-        let testURL: URL! = URL(string: "https://nau.goalify.chat/?query1=test1&query2=test2")
+        let testURL: URL! = URL(string: "https://demo.goalify.chat/?query1=test1&query2=test2")
 
         guard let queryParameters = testURL.queryParameters else {
             XCTFail("queryParameters is not nil")
@@ -54,7 +54,7 @@ class URLExtensionSpec: XCTestCase {
 
         XCTAssertEqual(queryParameters, ["query1": "test1", "query2": "test2"], "queryParameters returns dictionary correctly")
 
-        let testURL2: URL! = URL(string: "https://nau.goalify.chat/")
+        let testURL2: URL! = URL(string: "https://demo.goalify.chat/")
 
         XCTAssertNil(testURL2.queryParameters, "queryParameters is nil when there are no queries")
     }
