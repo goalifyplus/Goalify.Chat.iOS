@@ -66,7 +66,7 @@ class PushNotificationSpec: XCTestCase {
         let notification = PushNotification(raw: PushNotification.testRaw())
 
         XCTAssertEqual(notification?.roomId, "9euspXGgYsbEE5hi8")
-        XCTAssertEqual(notification?.host, "https://demo.goalify.chat/")
+        XCTAssertEqual(notification?.host, URL(string: "https://demo.goalify.chat/"))
     }
 }
 

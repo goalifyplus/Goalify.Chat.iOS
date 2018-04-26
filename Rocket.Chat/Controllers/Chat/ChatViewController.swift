@@ -10,6 +10,8 @@ import RealmSwift
 import SlackTextViewController
 import SimpleImageViewer
 
+private typealias NibCellIndentifier = (nibName: String, cellIdentifier: String)
+
 // swiftlint:disable file_length type_body_length
 final class ChatViewController: SLKTextViewController {
 
@@ -37,6 +39,7 @@ final class ChatViewController: SLKTextViewController {
                     scrollToBottomButtonIsVisible = false
                     return
                 }
+
                 let collectionViewBottom = collectionView.frame.origin.y + collectionView.frame.height
                 self.buttonScrollToBottomMarginConstraint?.constant = (collectionViewBottom - view.frame.height) - 40
             } else {
@@ -59,6 +62,7 @@ final class ChatViewController: SLKTextViewController {
     var replyView: ReplyView!
     var replyString: String = ""
     var messageToEdit: Message?
+    var lastTimeSentTypingEvent: Date?
 
     var dataController = ChatDataController()
 
@@ -79,7 +83,7 @@ final class ChatViewController: SLKTextViewController {
 
     var subscription: Subscription? {
         didSet {
-            // clean up
+            // Clean up
             subscriptionToken?.invalidate()
             didCancelTextEditing(self)
 
@@ -167,6 +171,7 @@ final class ChatViewController: SLKTextViewController {
 
         collectionView?.isPrefetchingEnabled = true
         collectionView?.keyboardDismissMode = .interactive
+        enableInteractiveKeyboardDismissal()
 
         isInverted = false
         bounces = true
@@ -181,7 +186,7 @@ final class ChatViewController: SLKTextViewController {
         setupScrollToBottomButton()
 
         NotificationCenter.default.addObserver(self, selector: #selector(reconnect), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDidChangeFrame(_:)), name: Notification.Name.UIKeyboardDidChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         SocketManager.addConnectionHandler(token: socketHandlerToken, handler: self)
 
         if !SocketManager.isConnected() {
@@ -201,6 +206,11 @@ final class ChatViewController: SLKTextViewController {
         }
 
         setupReplyView()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        keyboardFrame?.updateFrame()
     }
 
     @objc internal func reconnect() {
@@ -276,8 +286,6 @@ final class ChatViewController: SLKTextViewController {
     }
 
     fileprivate func registerCells() {
-        typealias NibCellIndentifier = (nibName: String, cellIdentifier: String)
-
         let collectionViewCells: [NibCellIndentifier] = [
             (nibName: "ChatLoaderCell", cellIdentifier: ChatLoaderCell.identifier),
             (nibName: "ChatMessageCell", cellIdentifier: ChatMessageCell.identifier),
@@ -315,6 +323,10 @@ final class ChatViewController: SLKTextViewController {
         scrollToBottomButtonIsVisible = false
     }
 
+    internal func resetScrollToBottomButtonPosition() {
+        scrollToBottomButtonIsVisible = !chatLogIsAtBottom()
+    }
+
     func resetMessageSending() {
         textView.text = ""
 
@@ -338,13 +350,18 @@ final class ChatViewController: SLKTextViewController {
     weak var keyboardHeightConstraint: NSLayoutConstraint?
     weak var textInputbarBackgroundHeightConstraint: NSLayoutConstraint?
 
-    weak var keyboardProxyView: UIView?
+    var keyboardFrame: KeyboardFrameView?
     let textInputbarBackground = UIToolbar()
     var oldTextInputbarBgIsTransparent = false
 
+    private func enableInteractiveKeyboardDismissal() {
+        keyboardFrame = KeyboardFrameView(withDelegate: self)
+    }
+
     // Enables for the interactive keyboard dismissal.
-    // Gets called in scrollViewDidScroll and keyboardDidChangeFrame methods.
-    private func updateKeyboardConstraints() {
+    // Gets called updateKeyboardConstraints(frame:) which is a
+    // required method of the KeyboardFrameViewDelegate
+    private func updateKeyboardConstraints(frame: CGRect) {
         if keyboardHeightConstraint == nil {
             keyboardHeightConstraint = self.view.constraints.first {
                 ($0.firstItem as? UIView) == self.view &&
@@ -357,26 +374,13 @@ final class ChatViewController: SLKTextViewController {
         // with no real fix for it provided by Apple in UIKit.
         updateTextInputbarBackground()
 
-        // keyboardProxyView is stored so as to account for an edge case on the iPad
-        // when it is split screen mode, where if a text field on the other app is
-        // active, then the textInputbar gets hidden under the keyboard.
-        if keyboardProxyView == nil {
-            keyboardProxyView = textInputbar.inputAccessoryView.superview
-        }
-
-        let keyboardWindowHeight = keyboardProxyView?.window?.frame.height ?? 0.0
-        let keyboardYOriginInWindow = keyboardProxyView?.frame.origin.y ?? 0.0
-
-        var keyboardHeight = keyboardWindowHeight - keyboardYOriginInWindow
+        var keyboardHeight = frame.height
 
         if #available(iOS 11.0, *) {
             keyboardHeight = keyboardHeight > view.safeAreaInsets.bottom ? keyboardHeight : view.safeAreaInsets.bottom
         }
 
-        // The conditional check should help prevent unnecessary re-draws.
-        if let keyboardHC = keyboardHeightConstraint, keyboardHC.constant != keyboardHeight {
-            keyboardHC.constant = keyboardHeight
-        }
+        keyboardHeightConstraint?.constant = keyboardHeight
     }
 
     private func updateTextInputbarBackground() {
@@ -412,10 +416,6 @@ final class ChatViewController: SLKTextViewController {
             textInputbarBackground.topAnchor.constraint(equalTo: textInputbar.topAnchor).isActive = true
             textInputbarBackground.centerXAnchor.constraint(equalTo: textInputbar.centerXAnchor).isActive = true
         }
-    }
-
-    @objc private func keyboardDidChangeFrame(_ notification: Notification) {
-        updateKeyboardConstraints()
     }
 
     // MARK: SlackTextViewController
@@ -471,19 +471,52 @@ final class ChatViewController: SLKTextViewController {
         }
     }
 
-    override func textViewDidBeginEditing(_ textView: UITextView) {
-        scrollToBottom(true)
-    }
-
     override func textViewDidChange(_ textView: UITextView) {
         guard let subscription = self.subscription else { return }
 
+        // Intervals
+        let kDefaultTypingInterval = 3 // seconds
+        let kDefaultTypingIntervalCheck = 5 // seconds
+
+        // Update draft text
         DraftMessageManager.update(draftMessage: textView.text, for: subscription)
 
         if textView.text?.isEmpty ?? true {
             SubscriptionManager.sendTypingStatus(subscription, isTyping: false)
         } else {
+            // We're not calling this event every char because the web starts flickering
+            // the "typing" view.
+            if let lastTimeSentTypingEvent = lastTimeSentTypingEvent {
+                if Int(Date().timeIntervalSince(lastTimeSentTypingEvent)) < kDefaultTypingInterval {
+                    return
+                }
+            }
+
+            // User is typing right now
+            lastTimeSentTypingEvent = Date()
             SubscriptionManager.sendTypingStatus(subscription, isTyping: true)
+
+            // After 5 seconds without writing, we send an event
+            // telling the server that user is not typing anymore
+            DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(kDefaultTypingIntervalCheck)) { [weak self] in
+                if let lastTimeSentTypingEvent = self?.lastTimeSentTypingEvent {
+                    if Int(Date().timeIntervalSince(lastTimeSentTypingEvent)) >= kDefaultTypingIntervalCheck {
+                        SubscriptionManager.sendTypingStatus(subscription, isTyping: false)
+                    }
+                }
+            }
+        }
+    }
+
+    @objc override func keyboardWillShow(_ notification: Notification) {
+        // Scroll to the bottom when the collectionView has scrolled more
+        // than scrollToBottomHeightMultiplier times the view's height.
+        let scrollToBottomHeightMultiplier: CGFloat = 1.2
+
+        let contentHeight = collectionView?.contentSize.height ?? 0
+        let contentOffset = collectionView?.contentOffset.y ?? 0
+        if contentHeight - contentOffset < self.view.frame.height * scrollToBottomHeightMultiplier {
+            scrollToBottom()
         }
     }
 
@@ -783,17 +816,12 @@ final class ChatViewController: SLKTextViewController {
     }
 
     fileprivate func appendMessages(messages: [Message], completion: VoidCompletion?) {
-        guard
-            let subscription = subscription,
-            let collectionView = collectionView,
-            !subscription.isInvalidated
-        else {
+        guard let subscription = subscription, let collectionView = collectionView, !subscription.isInvalidated else {
             return
         }
 
         guard !isAppendingMessages else {
             Log.debug("[APPEND MESSAGES] Blocked trying to append \(messages.count) messages")
-
             // This message can be called many times during the app execution and we need
             // to call them one per time, to avoid adding the same message multiple times
             // to the list. Also, we keep the subscription identifier in order to make sure
@@ -1074,11 +1102,10 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
 
         if let obj = dataController.itemAt(indexPath) {
             if obj.type == .header {
-                if subscription.type == .directMessage {
-                    return CGSize(width: fullWidth, height: ChatDirectMessageHeaderCell.minimumHeight)
-                } else {
-                    return CGSize(width: fullWidth, height: ChatChannelHeaderCell.minimumHeight)
-                }
+                let isDirectMessage = subscription.type == .directMessage
+                let directMessageHeaderSize = CGSize(width: fullWidth, height: ChatDirectMessageHeaderCell.minimumHeight)
+                let channelHeaderSize = CGSize(width: fullWidth, height: ChatChannelHeaderCell.minimumHeight)
+                return isDirectMessage ? directMessageHeaderSize : channelHeaderSize
             }
 
             if obj.type == .loader {
@@ -1092,9 +1119,9 @@ extension ChatViewController: UICollectionViewDelegateFlowLayout {
             if obj.type == .unreadSeparator {
                 if dataController.dismissUnreadSeparator {
                     return CGSize(width: fullWidth, height: 0)
-                } else {
-                    return CGSize(width: fullWidth, height: ChatMessageUnreadSeparator.minimumHeight)
                 }
+
+                return CGSize(width: fullWidth, height: ChatMessageUnreadSeparator.minimumHeight)
             }
 
             if let message = obj.message {
@@ -1116,15 +1143,12 @@ extension ChatViewController {
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         super.scrollViewDidScroll(scrollView)
 
-        updateKeyboardConstraints()
-
         if scrollView.contentOffset.y < -10 {
             if let message = dataController.oldestMessage() {
                 loadMoreMessagesFrom(date: message.createdAt)
             }
         }
-
-        scrollToBottomButtonIsVisible = !chatLogIsAtBottom()
+        resetScrollToBottomButtonPosition()
     }
 }
 
@@ -1202,5 +1226,20 @@ extension ChatViewController {
         default:
             break
         }
+    }
+}
+
+// MARK: KeyboardFrameViewDelegate
+
+extension ChatViewController: KeyboardFrameViewDelegate {
+    func keyboardDidChangeFrame(frame: CGRect?) {
+        if let frame = frame {
+            updateKeyboardConstraints(frame: frame)
+        }
+        resetScrollToBottomButtonPosition()
+    }
+
+    var keyboardProxyView: UIView? {
+        return textInputbar.inputAccessoryView.superview
     }
 }
