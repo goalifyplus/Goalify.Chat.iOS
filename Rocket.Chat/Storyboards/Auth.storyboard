@@ -802,7 +802,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Logo" width="248" height="49"/>
+        <image name="Logo" width="186" height="35"/>
         <image name="OnePassword-Button" width="27" height="27"/>
     </resources>
     <inferredMetricsTieBreakers>

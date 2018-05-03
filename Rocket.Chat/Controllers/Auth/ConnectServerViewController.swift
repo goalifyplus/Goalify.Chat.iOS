@@ -12,7 +12,7 @@ import semver
 
 final class ConnectServerViewController: BaseViewController {
 
-    internal let defaultURL = "https://demo.goalify.chat"
+    internal let defaultURL = "https://public.goalify.chat"
     internal var connecting = false
     internal let infoRequestHandler = InfoRequestHandler()
 

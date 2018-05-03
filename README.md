@@ -20,7 +20,7 @@
 
 [Github Issues](https://github.com/RocketChat/Rocket.Chat.iOS/issues) are used to track todos, bugs, feature requests, and more.
 
-Also check the community on [open.rocket.chat](https://demo.goalify.chat/channel/iosnativeapp). We'd like to help.
+Also check the community on [open.rocket.chat](https://public.goalify.chat/channel/iosnativeapp). We'd like to help.
 
 ## How to report an Issue
 

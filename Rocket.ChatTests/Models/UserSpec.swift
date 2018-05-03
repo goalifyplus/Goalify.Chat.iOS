@@ -123,7 +123,7 @@ class UserSpec: XCTestCase, RealmTestCase {
         let user = User.testInstance()
         let avatarURL = user.avatarURL(auth)
         XCTAssertNotNil(avatarURL, "url is valid")
-        XCTAssertEqual(avatarURL?.absoluteString, "https://demo.goalify.chat/avatar/user-username", "avatar url is valid")
+        XCTAssertEqual(avatarURL?.absoluteString, "https://public.goalify.chat/avatar/user-username", "avatar url is valid")
     }
 
     func testAvatarURLRandomUsername() {
@@ -133,7 +133,7 @@ class UserSpec: XCTestCase, RealmTestCase {
 
         let avatarURL = user.avatarURL(auth)
         XCTAssertNotNil(avatarURL, "url is valid")
-        XCTAssertEqual(avatarURL?.absoluteString, "https://demo.goalify.chat/avatar/\(user.username ?? "")", "avatar url is valid")
+        XCTAssertEqual(avatarURL?.absoluteString, "https://public.goalify.chat/avatar/\(user.username ?? "")", "avatar url is valid")
     }
 
     func testAvatarURLInvalid() {

@@ -33,7 +33,7 @@ class LoginServiceSpec: XCTestCase, RealmTestCase {
             \"scope\" : \"openid\",
             \"custom\" : true,
             \"authorizePath\" : \"/oauth/authorize\",
-            \"serverURL\" : \"https://demo.goalify.chat\",
+            \"serverURL\" : \"https://public.goalify.chat\",
             \"service\" : \"openrocketchat\",
             \"loginStyle\" : \"popup\",
             \"tokenSentVia\" : \"header\",
@@ -73,7 +73,7 @@ class LoginServiceSpec: XCTestCase, RealmTestCase {
         XCTAssertEqual(loginService.scope, "openid")
         XCTAssertEqual(loginService.custom, true)
         XCTAssertEqual(loginService.authorizePath, "/oauth/authorize")
-        XCTAssertEqual(loginService.serverUrl, "https://demo.goalify.chat")
+        XCTAssertEqual(loginService.serverUrl, "https://public.goalify.chat")
         XCTAssertEqual(loginService.service, "openrocketchat")
         XCTAssertEqual(loginService.loginStyle, "popup")
         XCTAssertEqual(loginService.tokenSentVia, "header")
@@ -86,25 +86,25 @@ class LoginServiceSpec: XCTestCase, RealmTestCase {
 
     func testAuthorizeUrl() {
         let service = LoginService()
-        service.serverUrl = "https://demo.goalify.chat/"
+        service.serverUrl = "https://public.goalify.chat/"
         service.authorizePath = "authorize_path"
 
-        XCTAssertEqual(service.authorizeUrl, "https://demo.goalify.chat/authorize_path")
+        XCTAssertEqual(service.authorizeUrl, "https://public.goalify.chat/authorize_path")
 
         service.authorizePath = nil
 
-        XCTAssertNil(service.authorizeUrl, "https://demo.goalify.chat/authorize_path")
+        XCTAssertNil(service.authorizeUrl, "https://public.goalify.chat/authorize_path")
     }
 
     func testAccessTokenUrl() {
         let service = LoginService()
-        service.serverUrl = "https://demo.goalify.chat/"
+        service.serverUrl = "https://public.goalify.chat/"
         service.tokenPath = "token_path"
 
-        XCTAssertEqual(service.accessTokenUrl, "https://demo.goalify.chat/token_path")
+        XCTAssertEqual(service.accessTokenUrl, "https://public.goalify.chat/token_path")
 
         service.tokenPath = nil
 
-        XCTAssertNil(service.accessTokenUrl, "https://demo.goalify.chat/token_path")
+        XCTAssertNil(service.accessTokenUrl, "https://public.goalify.chat/token_path")
     }
 }

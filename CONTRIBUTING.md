@@ -4,7 +4,7 @@ Great to have you here! Here are a few ways you can help make this project bette
 
 ## TestFlight builds
 
-If you're reporting issues, you may request for TestFlight (beta) access via [open.rocket.chat](https://demo.goalify.chat/channel/iosnativeapp).
+If you're reporting issues, you may request for TestFlight (beta) access via [open.rocket.chat](https://public.goalify.chat/channel/iosnativeapp).
 
 If you have a TestFlight pre-release installed you have following options:
 
